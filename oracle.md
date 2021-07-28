@@ -1,4 +1,8 @@
-﻿ ### `x/oracle` module in Shentu
+﻿## `x/oracle` module in Shentu
+
+### Introduction
+`oracle` module wants to break down complex audit reports into smaller security primitives that can be invoked on-chain to verify a smart contract's security in real time. These Security Oracle scores are dynamic, aggregating scores and providing insights into the reliability of the underlying code by querying most latest security primitives and tests.
+### `x/oracle` module in Shentu 
 #### Transactions and Queries 
 #### **Transactions**
 - `certik tx oracle claim-reward <address> [flags]`: Withdraw all of an operator's accumulated rewards. 
