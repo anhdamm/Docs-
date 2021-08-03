@@ -1,7 +1,5 @@
-﻿# Tutorial for Shentu node
-
-
-## `x/bank module`
+﻿
+## `x/bank` module
 
 ### Introduction
 The `bank` module tracks and provides query support for the total supply of all assets used in the application. It supports token transfer functionalities. For example,  the total supply is updated whenever a token is:

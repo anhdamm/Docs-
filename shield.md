@@ -3,9 +3,22 @@
 `shield` module is developed to utilize the unique staking, governance, and security features of CertiK Chain. CertiKShield is a decentralized pool of CTK that utilizes the CertiK Chain on-chain governance system to reimburse assets that have been lost, stolen, or are otherwise inaccessible on any blockchain network. Every member of a CertiKShield Pool can actively participate in selecting appropriate coverage circumstances thanks to this decentralized, on-chain voting process, leading in a dynamic and fully flexible coverage model. The cost of reserving funds from the CertiKShield Pool for personal reimbursement of lost assets will be directly related to the CertiK Security Oracle score, with lower scores (which indicate greater risk) demanding higher costs for protection.
 
 There are two members of the CertiKShield system: Collateral Providers and Shield Purchasers:
-
  - Collateral Providers: Members who contribute their cryptocurrency (CTK or another accepted cryptocurrency) to the CertiKShield Pool as collateral. Because these collateralized funds are used to pay out any authorized reimbursement requests, these Collateral Providers may end up with less crypto than they started with. These members receive staking rewards for their staked CTK, as well as a share of the costs paid by Shield Purchasers seeking protection.
  - Shield Purchasers: Members who are seeking for a protection for their crypto assets. These Members must select the amount of protection they require for their crypto assets (referred to as a "Shield") and pay a fee that goes straight to the Collateral Providers who provided funds for reservation. The funds that were used as collateral for active Shield Purchasers' Shields can no longer be reserved until the Shields expire, allowing the Pool to preserve full collateralization.
+
+#### Benefits for Blockchain Projects and Their Holders
+CertiKShield Pools offer a flexible type protection for blockchain network supporters, safeguarding both the project and its community. CertiKShield allows members to create a discretionary fund that can be utilized for reimbursements if their supporters experience any unexpected issues. 
+
+Any qualified member, whether from the blockchain project or an individual, must submit a Claim Proposal with a Submission Fee in order to request a reimbursement. This Submission Fee is designed to prevent illegitimate requests from being spammed. After the Submission Fee has been paid and the Claim Proposal has been carefully crafted, a decentralized voting process start, in which all CertiKShield system members can vote to accept or reject the Claim Proposal. 
+
+The blockchain project is responsible for paying a recurring fee to the Members who deposit collateral into the CertiKShield Pool in order to keep it active (the Collateral Providers). Members are incentivized to contribute to the Pool in order to earn a part of these fees, which keeps incentives aligned. Blockchain projects directly reward Members who provide collateral to support their ecosystem's protection, and Members are incentivized to contribute to the Pool in order to earn a chunk of these fees.
+
+#### Benefits and Risks for Staking Members / Liquidity Providers
+All CertiKShield Pool Collateral Providers will get typical staking benefits for staked CTK, as well as a part of the costs paid by Pool Shield Purchasers.
+
+CertiKShield Pools are a higher-risk, higher-reward staking option for CertiKShield. Staking on CertiK Nodes is another alternative that does not require any CTK as collateral. The main difference between staking and the CertiKShield Pool is that each Collateral Provider's stake can be utilized to reimburse Shield Purchasers for approved Claim Proposals.
+
+All Collateral Providers should be aware that their own collateral stake could be used for reimbursements. As a result, Collateral Providers are responsible for completing thorough due diligence for all CertiKShield Pool Members; the Security Oracle score can be one factor of security, but all Members are encouraged to thoroughly examine all aspects of the blockchain project.
 
  ### `x/shield` module in Shentu
 #### Transactions and Queries 

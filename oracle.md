@@ -2,6 +2,27 @@
 
 ### Introduction
 `oracle` module wants to break down complex audit reports into smaller security primitives that can be invoked on-chain to verify a smart contract's security in real time. These Security Oracle scores are dynamic, aggregating scores and providing insights into the reliability of the underlying code by querying most latest security primitives and tests.
+
+CertiK Security Oracles (`oracle` module) can also be used to submit requests for unaudited smart contracts. These requests are forwarded to a decentralized group of security operators that compete for the CTK transaction fee. The CertiK Oracle Combinator integrates the different results from each operator into an on-chain score. The transaction's fees are shared among the operators who contributed security primitives to the request.
+
+Users can make better decisions about their potential transactions and external invocations by using CertiK Security Oracles to retrieve security intelligence. This decentralized information system gives communities the ability to conduct real-time security checks, such as those active in the booming DeFi ecosystem. This innovation, in the spirit of complete decentralization, decentralizes security intelligence from a few security auditors to the entire blockchain community, making it available on-chain on demand.
+
+#### Security Oracle Architecture in Certik Chain
+CertiK Chain is envisioned as the Guardian of the Blockchain Galaxy, and it offers a variety of Combinators designed to address various aspects of security issues. 
+
+ - Oracle Combinator: CertiK Chain has built-in frameworks that make it easier to fulfill general oracle workflows with decentralization and transparency. Oracle tasks and result aggregation calculations will be broadcast to CertiK Chain and recorded in states as proofs. The system is designed to reward good actors and punish bad ones by implementing a set of critical rules and reinforcements.
+ - Security Primitive: Security Providers can register their on-chain services or off-chain API endpoints as Security Primitives, which Oracle Operators can then use to invoke them. Security Primitives are a collection of service functionalities that address security issues from a variety of perspectives. It is best practice to include a carefully selected list of Security Primitives in order to make the most informed decision possible about the security score of a given smart contract address and function signature.
+
+
+#### Security Oracle Workflow in Certik Chain
+
+ - End users submit oracle tasks for security insights they want on the Business Chain, which are funded with CTKs.
+ - By subscribing to CertiK Chain events, Oracle Operators will receive the task.
+ - It will send the task specifics to each Operator's customized Primitive Combination for real-time security checks;
+ - The operator will respond to the oracle task by broadcasting a transaction to CertiK Chain after generating a security score.
+ - When the task response window closes, CertiK Chain's Oracle Combinator collects all responses for that task and aggregates them into a final security score. Operators will be given task bounties based on their performance.
+ - The final security score will then be pushed to the Business Chain's Security Oracle contract via a cross-chain bridge component.
+
 ### `x/oracle` module in Shentu 
 #### Transactions and Queries 
 #### **Transactions**

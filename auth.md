@@ -4,7 +4,7 @@
 The auth module is responsible for implementing the application's fundamental transaction and account types as SDK is agnostic about these details. It exposes the account keeper, which allows other modules to read, write, and edit accounts, and contains the ante handler, which performs all fundamental transaction validity checks (signatures, nonces, auxiliary fields). 
 
 ### Overview
-The `distribution` module contains the following network parameters:
+The `auth` module contains the following network parameters:
 	- `MaxMemoCharacters`: The maximum permitted number of characters in the memo of a transaction.
 	- `TxSigLimit`: The maximum number of singers in a transaction. A single transaction can have multiple messages and multiple signers. The default limit is 100 since the sig verification cost is much higher than other operations.
 	- `TxSizeCostPerByte`:  To calculate gas consumption of the transaction.
