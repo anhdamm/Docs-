@@ -26,15 +26,6 @@ CertiK Chain is envisioned as the Guardian of the Blockchain Galaxy, and it offe
 ### `x/oracle` module in Shentu 
 #### Transactions and Queries 
 #### **Transactions**
-- `certik tx oracle claim-reward <address> [flags]`: Withdraw all of an operator's accumulated rewards. 
-```{engine='sh'}
-$ certik tx oracle claim-reward certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we --from jack --chain-id certikchain
-
-{"body":{"messages":[{"@type":"/shentu.oracle.v1alpha1.MsgWithdrawReward","address":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
-
-confirm transaction before signing and broadcasting [y/N]: y
-```
-
 - `certik tx oracle create-operator <address> <collateral> [flags]`: Create an operator and deposit collateral. For instance, you want to create new  operator with alice's address from jack's key by using:
 ```{engine='sh'}
 $ certik tx oracle create-operator certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we 500000uctk --fees 10000uctk --from jack --chain-id certikchain
@@ -44,7 +35,7 @@ $ certik tx oracle create-operator certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-- `certik tx oracle create-task <contract_address> <function> <bounty> [flags]`: Create a task
+- `certik tx oracle create-task <contract_address> <function> <bounty> [flags]`: Create a task. For example, we want to create a task with a contract has Txhash (=0xD...) and a function 0x00000000, we can use command below:
 ```{engine='sh'}
 $ certik tx oracle create-task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x00000000 1000uctk --from jack --chain-id certikchain
 
@@ -53,7 +44,7 @@ $ certik tx oracle create-task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x0000
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-- `certik tx oracle deposit-collateral <address> <amount> [flags]`: Increase an operator's collateral.
+- `certik tx oracle deposit-collateral <address> <amount> [flags]`: Increase an operator's collateral. After we assign Alice as operator, Jack can increase 10000uctk in Alice's collateral with this command:
 ```{engine='sh'}
 $ certik tx oracle deposit-collateral certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we 10000uctk --from jack --chain-id certikchain
 
@@ -61,7 +52,8 @@ $ certik tx oracle deposit-collateral certik1nc6v8tme0env488494ys09ld39dn9xzw6gc
 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
-- `certik tx oracle withdraw-collateral <address> <amount> [flags]`: Reduce an operator's collateral
+
+- `certik tx oracle withdraw-collateral <address> <amount> [flags]`: Reduce an operator's collateral. As mentioned above, Jack can reduce Alice's collateral to 10000uctk if he doesn't want to give Alice:
 ```{engine = 'sh'}
 $ certik tx oracle withdraw-collateral certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we 10000uctk --from jack --chain-id certikchain
 
@@ -69,24 +61,8 @@ $ certik tx oracle withdraw-collateral certik1nc6v8tme0env488494ys09ld39dn9xzw6g
 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
-- `certik tx oracle remove-operator <address> [flags]`: Remove an operator and withdraw collateral & rewards. For example, we remove the operator that we created earlier above:
-```{engine = 'sh'}
-$ certik tx oracle remove-operator certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we --from jack --chain-id certikchain
 
-{"body":{"messages":[{"@type":"/shentu.oracle.v1alpha1.MsgRemoveOperator","address":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we","proposer":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
-
-confirm transaction before signing and broadcasting [y/N]: y
-```
-- `certik tx oracle delete-task <contract_address> <function> [flags]`: Delete a finished task.
-```{engine = 'sh'}
-$ certik tx oracle delete-task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x00000000 --from jack --chain-id certikchain
-
-{"body":{"messages":[{"@type":"/shentu.oracle.v1alpha1.MsgDeleteTask","contract":"0xD850942eF8811f2A866692A623011bDE52a462C1","function":"0x00000000","force":false,"deleter":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
-
-confirm transaction before signing and broadcasting [y/N]: y
-```
-
-- `certik tx oracle respond-to-task <contract_address> <function> <score> [flags]`: Respond to a task. 
+- `certik tx oracle respond-to-task <contract_address> <function> <score> [flags]`: Respond to a task. After creating a task, this command is used to response the task created and judge the score for the task: 
 ```{engine = 'sh'}
 $ certik tx oracle respond-to-task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x00000000 9 --from jack --chain-id certikchain
 
@@ -95,8 +71,34 @@ $ certik tx oracle respond-to-task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
+- `certik tx oracle claim-reward <address> [flags]`: Withdraw all of an operator's accumulated rewards. As Alice is assigned to be operator, Jack wants to withdraw rewards of Alice by using this command: 
+```{engine='sh'}
+$ certik tx oracle claim-reward certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we --from jack --chain-id certikchain
+
+{"body":{"messages":[{"@type":"/shentu.oracle.v1alpha1.MsgWithdrawReward","address":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]: y
+```
+
+- `certik tx oracle remove-operator <address> [flags]`: Remove an operator and withdraw collateral & rewards. For example, we remove the operator (Alice) that we created earlier above:
+```{engine = 'sh'}
+$ certik tx oracle remove-operator certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we --from jack --chain-id certikchain
+
+{"body":{"messages":[{"@type":"/shentu.oracle.v1alpha1.MsgRemoveOperator","address":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we","proposer":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]: y
+```
+- `certik tx oracle delete-task <contract_address> <function> [flags]`: Delete a finished task. After creating and responding the task, we can delete the task:
+```{engine = 'sh'}
+$ certik tx oracle delete-task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x00000000 --from jack --chain-id certikchain
+
+{"body":{"messages":[{"@type":"/shentu.oracle.v1alpha1.MsgDeleteTask","contract":"0xD850942eF8811f2A866692A623011bDE52a462C1","function":"0x00000000","force":false,"deleter":"certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we"}],"memo":"","timeout_height":"0","extension_options":[],"non_critical_extension_options":[]},"auth_info":{"signer_infos":[],"fee":{"amount":[],"gas_limit":"200000","payer":"","granter":""}},"signatures":[]}
+
+confirm transaction before signing and broadcasting [y/N]: y
+```
+
 #### **Queries**
-- `certik query oracle operator <address> [flags]`: Get operator information
+- `certik query oracle operator <address> [flags]`: Get operator information. (In this case, Alice is operator as transaction above).
 
 ```{engine = 'sh'}
 $ certik query oracle operator certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we --chain-id certikchain
@@ -110,7 +112,7 @@ denom: uctk
 name: ""
 proposer: certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we
 ```
-- `certik query oracle operators [flags]`: Get operators information
+- `certik query oracle operators [flags]`: Get operators information. Since only Alice is assigned as operator, only one operator listed below. We can assign many operators as we want.
 ```{engine = 'sh'}
 $ certik query oracle operator certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we --chain-id certikchain
 
@@ -123,7 +125,7 @@ denom: uctk
 name: ""
 proposer: certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we
 ```
-- `certik query oracle withdraws [flags]`: Get all withdrawals. 
+- `certik query oracle withdraws [flags]`: Get all withdrawals. As Jack withdraw 10000uctk from Alice, this query show the withdraw information here.
 ```{engine = 'sh'}
 $ certik query oracle withdraws --chain-id certikchain
 
@@ -135,7 +137,7 @@ denom: uctk
 due_block: "12271"
 ```
 
-- `certik query oracle response <operator_address> <contract_address> <function> [flags]`: Get response information. 
+- `certik query oracle response <operator_address> <contract_address> <function> [flags]`: Get response information. After creating `tx oracle respond-to-task` above, we can get the information task's response here.
 ```{engine = 'sh'}
 $ certik query oracle response certik1nc6v8tme0env488494ys09ld39dn9xzw6gc7we 0xD850942eF8811f2A866692A623011bDE52a462C1 0x00000000 --chain-id certikchain
 
@@ -148,7 +150,7 @@ response:
 	weight: "500000"
 ```
 
-- `certik query oracle task <contract_address> <function> [flags]`: Get task information
+- `certik query oracle task <contract_address> <function> [flags]`: Get task information. After creating a task, we can query to see the task information by this command:
 ```{engine = 'sh'}
 $ certik query oracle task 0xD850942eF8811f2A866692A623011bDE52a462C1 0x00000000 --chain-id certikchain
 

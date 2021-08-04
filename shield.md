@@ -25,42 +25,42 @@ All Collateral Providers should be aware that their own collateral stake could b
 #### **Transactions**
 - `certik tx shield clear-payouts [denom] [flags]`: Clear pending payouts after they have been distributed. Currently deprecated.
 
-- `certik tx shield create-pool [shield amount] [sponsor] [sponsor-address] [flags]`: Create a Shield pool. Can only be executed from the Shield admin address.
+- `certik tx shield create-pool [shield amount] [sponsor] [sponsor-address] [flags]`: Create a Shield pool. Can only be executed from the Shield admin address. Every project wants to buy a Shield need to create a pool then the project can purchase Shield. For example, jack is the Shield admin and he can create a pool as described below with alice as sponsor:
 ```{engine = 'sh'}
-$ certik tx shield create-pool 10000uctk abc $(certik keys show jack -a) --native-deposit 1000uctk --shield-limit 10000000 --from jack --fees 500uctk -y -b block --chain-id certikchain
+$ certik tx shield create-pool 10000uctk abc $(certik keys show alice -a) --native-deposit 1000uctk --shield-limit 10000000 --from jack --fees 500uctk -y -b block --chain-id certikchain
 
 {"height":"69","txhash":"8978C7CB0712943FB5081A14AAA6CB870810240BD3703956FC60564FE9274D21","codespace":"","code":0,"data":"0A0D0A0B6372656174655F706F6F6C","raw_log":"[{\"events\":[{\"type\":\"create_pool\",\"attributes\":[{\"key\":\"shield\",\"value\":\"10000uctk\"},{\"key\":\"deposit\",\"value\":\"native:\\u003cdenom:\\\"uctk\\\" amount:\\\"1000\\\" \\u003e \"},{\"key\":\"sponsor\",\"value\":\"abc\"},{\"key\":\"pool_id\",\"value\":\"1\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"create_pool\"},{\"key\":\"sender\",\"value\":\"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y\"},{\"key\":\"module\",\"value\":\"shield\"},{\"key\":\"sender\",\"value\":\"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"certik1qu4xymkj6mx86hdqlnpc3ucx0dyujw7dp9w7dr\"},{\"key\":\"sender\",\"value\":\"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y\"},{\"key\":\"amount\",\"value\":\"1000uctk\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"create_pool","attributes":[{"key":"shield","value":"10000uctk"},{"key":"deposit","value":"native:\u003cdenom:\"uctk\" amount:\"1000\" \u003e "},{"key":"sponsor","value":"abc"},{"key":"pool_id","value":"1"}]},{"type":"message","attributes":[{"key":"action","value":"create_pool"},{"key":"sender","value":"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y"},{"key":"module","value":"shield"},{"key":"sender","value":"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"certik1qu4xymkj6mx86hdqlnpc3ucx0dyujw7dp9w7dr"},{"key":"sender","value":"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y"},{"key":"amount","value":"1000uctk"}]}]}],"info":"","gas_wanted":"200000","gas_used":"115797","tx":null,"timestamp":""}
 ```
 
-- `certik tx shield deposit-collateral [collateral] [flags]`: Join a Shield pool as a community member by depositing collateral. (maybe deprecated)
+- `certik tx shield deposit-collateral [collateral] [flags]`: Join a Shield pool as a community member by depositing collateral. For example, Alice wants to join a Shield pool, she needs to deposit 100000uctk as below:
 ```{engine = 'sh'}
-$ certik tx shield deposit-collateral 100000uctk --from jack --fees 500uctk -y -b block --chain-id certikchain
+$ certik tx shield deposit-collateral 100000uctk --from alice --fees 500uctk -y -b block --chain-id certikchain
 
 {"height":"57","txhash":"7E40EA6C5B5D04C87D4E51F08A038EC44542177BD6CAB8DB7ABABECCE0EE4036","codespace":"","code":0,"data":"0A140A126465706F7369745F636F6C6C61746572616C","raw_log":"[{\"events\":[{\"type\":\"deposit_collateral\",\"attributes\":[{\"key\":\"collateral\",\"value\":\"100000\"},{\"key\":\"sender\",\"value\":\"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"deposit_collateral\"},{\"key\":\"module\",\"value\":\"shield\"},{\"key\":\"sender\",\"value\":\"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"deposit_collateral","attributes":[{"key":"collateral","value":"100000"},{"key":"sender","value":"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y"}]},{"type":"message","attributes":[{"key":"action","value":"deposit_collateral"},{"key":"module","value":"shield"},{"key":"sender","value":"certik1ltsnt5y5jgzelffdw0cmdyfltyls493naaj
 ```
 
-- `certik tx shield pause-pool [pool id] [flags]`: Pause a Shield pool to prevent new Shield purchases. Can only be executed from the Shield. admin address.
+- `certik tx shield pause-pool [pool id] [flags]`: Pause a Shield pool to prevent new Shield purchases. Can only be executed from the Shield. admin address. After creating a pool above, we can pause the pool by this command: (flag --from jack indicate jack is the shield admin and he can create/pause/resume the pool).
 ```{engine = 'sh'}
 $ certik tx shield pause-pool 1 --from jack -y --chain-id certikchain
 
 {"height":"273","txhash":"BF329A55C34628B506D874507497775AEA3052E9CA95ED32C6E2D7E42A774455","codespace":"","code":0,"data":"0A0C0A0A70617573655F706F6F6C","raw_log":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"pause_pool\"},{\"key\":\"module\",\"value\":\"shield\"},{\"key\":\"sender\",\"value\":\"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed\"}]},{\"type\":\"pause_pool\",\"attributes\":[{\"key\":\"pool_id\",\"value\":\"1\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"message","attributes":[{"key":"action","value":"pause_pool"},{"key":"module","value":"shield"},{"key":"sender","value":"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed"}]},{"type":"pause_pool","attributes":[{"key":"pool_id","value":"1"}]}]}],"info":"","gas_wanted":"200000","gas_used":"44372","tx":null,"timestamp":""}
 ```
 
-- `certik tx shield purchase [pool id] [shield amount] [description] [flags]`: Purchase Shield. Requires purchaser to provide descriptions of accounts to be protected.
+- `certik tx shield purchase [pool id] [shield amount] [description] [flags]`: Purchase Shield. Requires purchaser to provide descriptions of accounts to be protected. For example, Bob purchases a pool that has id 2 and he needs to provide description "test purchase 1" as below:
 ```{engine = 'sh'}
-$ certik tx shield purchase 2 50000000uctk "test purchase 1" --from jack -y --chain-id certikchain
+$ certik tx shield purchase 2 50000000uctk "test purchase 1" --from bob -y --chain-id certikchain
 
 {"height":"808","txhash":"D9E07C3A566AEC8ED01B918C961D1BEB3A718FC50835AB1FA2475F6E3FF7CB34","codespace":"","code":0,"data":"0A110A0F70757263686173655F736869656C64","raw_log":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"purchase_shield\"},{\"key\":\"sender\",\"value\":\"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed\"},{\"key\":\"module\",\"value\":\"shield\"},{\"key\":\"sender\",\"value\":\"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed\"}]},{\"type\":\"purchase_shield\",\"attributes\":[{\"key\":\"purchase_id\",\"value\":\"3\"},{\"key\":\"pool_id\",\"value\":\"2\"},{\"key\":\"protection_end_time\",\"value\":\"2021-08-18 17:23:28.41884 +0000 UTC\"},{\"key\":\"purchase_description\",\"value\":\"test purchase 1\"},{\"key\":\"shield\",\"value\":\"50000000\"},{\"key\":\"service_fees\",\"value\":\"native:\\u003cdenom:\\\"uctk\\\" amount:\\\"384500000000000000000000\\\" \\u003e \"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"certik1qu4xymkj6mx86hdqlnpc3ucx0dyujw7dp9w7dr\"},{\"key\":\"sender\",\"value\":\"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed\"},{\"key\":\"amount\",\"value\":\"384500uctk\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"message","attributes":[{"key":"action","value":"purchase_shield"},{"key":"sender","value":"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed"},{"key":"module","value":"shield"},{"key":"sender","value":"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed"}]},{"type":"purchase_shield","attributes":[{"key":"purchase_id","value":"3"},{"key":"pool_id","value":"2"},{"key":"protection_end_time","value":"2021-08-18 17:23:28.41884 +0000 UTC"},{"key":"purchase_description","value":"test purchase 1"},{"key":"shield","value":"50000000"},{"key":"service_fees","value":"native:\u003cdenom:\"uctk\" amount:\"384500000000000000000000\" \u003e "}]},{"type":"transfer","attributes":[{"key":"recipient","value":"certik1qu4xymkj6mx86hdqlnpc3ucx0dyujw7dp9w7dr"},{"key":"sender","value":"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed"},{"key":"amount","value":"384500uctk"}]}]}],"info":"","gas_wanted":"200000","gas_used":"96859","tx":null,"timestamp":""}
 ```
 
-- `certik tx shield resume-pool [pool id] [flags]`: Resume a Shield pool to reactivate Shield purchase. Can only be executed from the Shield admin address.
+- `certik tx shield resume-pool [pool id] [flags]`: Resume a Shield pool to reactivate Shield purchase. Can only be executed from the Shield admin address. After pausing pool 1 above, jack can resume the pool so that members in Shield pool can purchase it.
 ```{engine = 'sh'}
 $ certik tx shield resume-pool 1 --from jack -y --chain-id certikchain
 
 {"height":"282","txhash":"24C7755605CBCE48489E312B619C21418F27B6E994F9B9F67D0110D04F758FDB","codespace":"","code":0,"data":"0A0D0A0B726573756D655F706F6F6C","raw_log":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"resume_pool\"},{\"key\":\"module\",\"value\":\"shield\"},{\"key\":\"sender\",\"value\":\"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed\"}]},{\"type\":\"resume_pool\",\"attributes\":[{\"key\":\"pool_id\",\"value\":\"1\"}]}]}]","logs":[{"msg_index":0,"log":"","events":[{"type":"message","attributes":[{"key":"action","value":"resume_pool"},{"key":"module","value":"shield"},{"key":"sender","value":"certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed"}]},{"type":"resume_pool","attributes":[{"key":"pool_id","value":"1"}]}]}],"info":"","gas_wanted":"200000","gas_used":"44436","tx":null,"timestamp":""}
 ```
 
-- `certik tx shield stake-for-shield [pool id] [shield amount] [description] [flags]`: Obtain shield through staking. Requires purchaser to provide descriptions of accounts to be protected.
+- `certik tx shield stake-for-shield [pool id] [shield amount] [description] [flags]`: Obtain shield through staking. Requires purchaser to provide descriptions of accounts to be protected. For example, jack wants to obtain the shield, he can stake 5000000uctk for pool with id 1 and provide the description "test 1" as described below:
 ```{engine = 'sh'}
 $ certik tx shield stake-for-shield 1 50000000uctk "test 1" --chain-id certikchain --from jack
 
@@ -69,7 +69,7 @@ $ certik tx shield stake-for-shield 1 50000000uctk "test 1" --chain-id certikcha
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-- `certik tx shield unstake-from-shield [pool id] [amount]  [flags]`: Withdraw staking from shield. Requires existing shield purchase through staking.
+- `certik tx shield unstake-from-shield [pool id] [amount]  [flags]`: Withdraw staking from shield. Requires existing shield purchase through staking. After staking for shield above, jack can unstake  the amount with this command:
 ```{engine = 'sh'}
 $ certik tx shield unstake-from-shield 1 5000000uctk  --chain-id certikchain --from jack
 
@@ -78,7 +78,7 @@ $ certik tx shield unstake-from-shield 1 5000000uctk  --chain-id certikchain --f
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-- `certik tx shield update-pool [pool id] [flags]`: Update a Shield pool. Can only be executed from the Shield admin address.
+- `certik tx shield update-pool [pool id] [flags]`: Update a Shield pool. Can only be executed from the Shield admin address. We can update an existing Shield pool by adding more deposit or updating Shield amount:
 ```{engine = 'sh'}
 $ certik tx shield update-pool 1 --shield-limit 100000000 --from jack --chain-id certikchain
 
@@ -87,7 +87,7 @@ $ certik tx shield update-pool 1 --shield-limit 100000000 --from jack --chain-id
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-- `certik tx shield update-sponsor [pool id] [new_sponsor] [new_sponsor_address] [flags]`: Update a pool's sponsor. Can only be executed from the Shield admin address.
+- `certik tx shield update-sponsor [pool id] [new_sponsor] [new_sponsor_address] [flags]`: Update a pool's sponsor. Can only be executed from the Shield admin address. As alice is the sponsor for pool 1, we can update bob as sponsor instead of alice with this command: 
 ```{engine = 'sh'}
 $ certik tx shield update-sponsor 1 testb $(certik keys show bob -a) --from bob --chain-id certikchain
 
@@ -96,7 +96,7 @@ $ certik tx shield update-sponsor 1 testb $(certik keys show bob -a) --from bob 
 confirm transaction before signing and broadcasting [y/N]: y
 ```
 
-- `certik tx shield withdraw-collateral [collateral] [flags]`: Withdraw deposited collateral from Shield pool
+- `certik tx shield withdraw-collateral [collateral] [flags]`: Withdraw deposited collateral from Shield pool. Alice can withdraw her collateral after she deposited it by using: 
 ```{engine = 'sh'}
 $ certik tx shield withdraw-collateral 100000uctk --from jack --chain-id certikchain
 
@@ -107,7 +107,7 @@ confirm transaction before signing and broadcasting [y/N]: y
 
 - `certik tx shield withdraw-foreign-rewards [denom] [address] [flags]`: Withdraw foreign rewards coins to their original chain. Currently deprecated.
 
-- `certik tx shield withdraw-reimbursement [proposal id] [flags]`: Withdraw reimbursement by proposal id.
+- `certik tx shield withdraw-reimbursement [proposal id] [flags]`: Withdraw reimbursement by proposal id. A proposal is created when someone purchase a pool and they want to submit a proposal through `gov` module. After the voting period and proposal status is passed, the reimbursement is directly   approved. After the reimbursement is made, we can withdraw it by using:
 ```{engine = 'sh'}
 $ certik tx shield withdraw-reimbursement 1 --from bob --chain-id certikchain
 
@@ -139,7 +139,7 @@ params:
 	payout_period: 4838400s	
 ```
 
-- `certik query shield pool [pool_ID] [flags]`: Query a pool.
+- `certik query shield pool [pool_ID] [flags]`: Query a pool. For example, after the pool 1 is created, we can query to get the information:
 ```{engine = 'sh'}
 $ certik query shield pool 1 --chain-id certikchain
 	pool:
@@ -152,7 +152,7 @@ $ certik query shield pool 1 --chain-id certikchain
 	sponsor_addr: certik1ltsnt5y5jgzelffdw0cmdyfltyls493naajx2y
 ```
 
-- `certik query shield pool-params [flags]`: Get pool parameters.
+- `certik query shield pool-params [flags]`: Get pool parameters. 
 ```{engine = 'sh'}
 $ certik query shield pool-params --chain-id certikchain
 
@@ -166,7 +166,7 @@ params:
 	withdraw_period: 1814400s
 ```
 
-- `certik query shield pool-purchaser [pool_ID] [purchaser_address] [flags]`: Get purchases corresponding to a given pool-purchaser pair.
+- `certik query shield pool-purchaser [pool_ID] [purchaser_address] [flags]`: Get purchases corresponding to a given pool-purchaser pair. For example, jack is the purchaser for pool 2, we can query to get information from jack and transaction of pool 2:
 ```{engine = 'sh'}
 $ certik query shield pool-purchaser 2 $(certik keys show jack -a) --chain-id certikchain
 
@@ -196,7 +196,7 @@ purchase_list:
 	purchaser: certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed
 ```
 
-- `certik query shield pool-purchases [pool_ID] [flags]`: Query purchases in a given pool.
+- `certik query shield pool-purchases [pool_ID] [flags]`: Query purchases in a given pool. Get all the purchasers from a pool 1 by using: 
 ```{engine = 'sh'}
 $ certik query shield pool-purchases 1 --chain-id certikchain
 
@@ -216,7 +216,7 @@ purchase_lists:
 	purchaser: certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed
 ```
 
-- `certik query shield pools [flags]`: Query a complete list of pools.
+- `certik query shield pools [flags]`: Query a complete list of pools. After pools are created, we can get all the information of the pools:
 ```{engine = 'sh'}
 $ certik query shield pools --chain-id certikchain
 
@@ -272,7 +272,7 @@ providers:
 	withdrawing: "100000"
 ```
 
-- `certik query shield purchases [flags]`: Query all purchases.
+- `certik query shield purchases [flags]`: Query all purchases. For example, each pool is purchased by a purchaser, we can query all the information of the purchase lists:
 ```{engine = 'sh'}
 $ purchases:
 	- deletion_time: "2021-08-18T16:20:18.048781Z"
@@ -307,7 +307,7 @@ $ purchases:
 	shield: "50000000"
 ```
 
-- `certik query shield purchases-by [purchaser_address] [flags]`: Query purchase information of a given account.
+- `certik query shield purchases-by [purchaser_address] [flags]`: Query purchase information of a given account. For example, we want to get information from purchaser jack, we can use this command:
 ```{engine = 'sh'}
 certik query shield purchases-by $(certik keys show jack -a) --chain-id certikchain
 
@@ -350,7 +350,7 @@ purchase_lists:
 	purchaser: certik1p49jqcz6zs7n603qr74p5tmzf3068uee9dc5ed
 ```
 
-- `certik query shield reimbursement [proposal ID] [flags]`: Query a reimbursement.
+- `certik query shield reimbursement [proposal ID] [flags]`: Query a reimbursement. After the proposal is passed, a reimbursement is made and we can get the information of that reimbursement:
 ```{engine = 'sh'}
 $ certik query shield reimbursement 1
 
@@ -362,7 +362,7 @@ reimbursement:
 	payout_time: "2021-09-27T14:11:25.195151Z"
 ```
 
-- `certik query shield reimbursements [flags]`: Query all reimbursements.
+- `certik query shield reimbursements [flags]`: Query all reimbursements. 
 ```{engine = 'sh'}
 certik query shield reimbursements
 
@@ -383,7 +383,7 @@ $ certik query shield shield-staking-rate --chain-id certikchain
 rate: "2.000000000000000000"
 ```
 
-- `certik query shield sponsor [pool_ID] [flags]`: Query pools for a sponsor. #the [pool_ID] should be change to [sponsor_address] 
+- `certik query shield sponsor [pool_ID] [flags]`: Query pools for a sponsor. #the [pool_ID] should be change to [sponsor_address]. Each pool is created with a sponsor and we can get information of that sponsor: 
 ```{engine = 'sh'}
 $ certik query shield sponsor $(certik keys show alice -a)
 
